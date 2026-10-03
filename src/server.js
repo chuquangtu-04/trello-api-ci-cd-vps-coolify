@@ -1,19 +1,19 @@
 /* eslint-disable no-console */
 import express from 'express'
-import { CONNECT_DB, CLOSE_DB } from '~/config/mongodb'
-import { env } from './config/environment'
-import { APIs_v1 } from './routes/v1'
-import { corsOptions } from './config/cors'
+import { CONNECT_DB, CLOSE_DB } from './config/mongodb.js'
+import { env } from './config/environment.js'
+import { APIs_v1 } from './routes/v1/index.js'
+import { corsOptions } from './config/cors.js'
 import cors from 'cors'
-import { errorHandlingMiddleware } from './middlewares/errorHandlingMiddleware'
+import { errorHandlingMiddleware } from './middlewares/errorHandlingMiddleware.js'
 import cookieParser from 'cookie-parser'
 // Xử lý socket real-time với gói socket.io
 // https://socket.io/get-started/chat/#integrating-socketio
-import socketIo from 'socket.io'
+import { Server as SocketIoServer } from 'socket.io'
 import http from 'http'
-import { inviteUserToBoardSocket } from './sockets/inviteUserToBoardSocket'
-import { updateCardSocket } from './sockets/updateCardSocket'
-import { startCardReminderCron } from './cronJobs/cardReminderCron'
+import { inviteUserToBoardSocket } from './sockets/inviteUserToBoardSocket.js'
+import { updateCardSocket } from './sockets/updateCardSocket.js'
+import { startCardReminderCron } from './cronJobs/cardReminderCron.js'
 
 const START_SERVER = () => {
   const app = express()
@@ -35,7 +35,7 @@ const START_SERVER = () => {
   // Tạo một cái server mới bọc thằng app của express đề làm real-time với socket.io
   const server = http.createServer(app)
   // Khởi tạo biến io với server và cors
-  const io = socketIo(server, { cors: corsOptions })
+  const io = new SocketIoServer(server, { cors: corsOptions })
 
   // Middleware để truyền io vào req (Phải đặt trước khi sử dụng các routes APIs_v1)
   app.use((req, res, next) => {

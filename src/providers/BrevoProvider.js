@@ -1,8 +1,8 @@
 // Lưu ý Brevo là tên thương hiệu mới của sib - Sendinblue
 // Vì thế trong phần hướng dẫn trên github có thể nó vẫn còn giữ tên biến SibApiV3Sdk
 // https://github.com/getbrevo/brevo-node
-const SibApiV3Sdk = require('@getbrevo/brevo')
-import { env } from '~/config/environment'
+import SibApiV3Sdk from '@getbrevo/brevo'
+import { env } from '../config/environment.js'
 
 /**
  * Có thể xem thêm phần docs cấu hình theo từng ngôn ngữ khác nhau tùy dự án ở Brevo Dashboard > Account > SMTP & API > API Keys

@@ -1,7 +1,7 @@
-import { userService } from '~/services/userService'
+import { userService } from '../services/userService.js'
 import { StatusCodes } from 'http-status-codes'
 import ms from 'ms'
-import ApiError from '~/utils/ApiError'
+import ApiError from '../utils/ApiError.js'
 const createNew = async (req, res, next) => {
   try {
     const createdUser = await userService.createNew(req.body)

@@ -1,7 +1,7 @@
 import express from 'express'
-import { columnValidation } from '~/validations/columnValidation'
-import { columnController } from '~/controllers/columnController'
-import { authMiddleware } from '~/middlewares/authMiddlewares'
+import { columnValidation } from '../../validations/columnValidation.js'
+import { columnController } from '../../controllers/columnController.js'
+import { authMiddleware } from '../../middlewares/authMiddlewares.js'
 const Router = express.Router()
 
 Router.route('/')

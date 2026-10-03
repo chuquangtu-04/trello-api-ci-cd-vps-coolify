@@ -1,5 +1,5 @@
-import { CloudinaryProvider } from '~/providers/CloudinaryProvider'
-import ApiError from '~/utils/ApiError'
+import { CloudinaryProvider } from '../providers/CloudinaryProvider.js'
+import ApiError from '../utils/ApiError.js'
 import { StatusCodes } from 'http-status-codes'
 
 const uploadImage = async (imageFile) => {

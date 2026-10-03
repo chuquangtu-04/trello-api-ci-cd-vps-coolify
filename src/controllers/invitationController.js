@@ -1,5 +1,5 @@
 import { StatusCodes } from 'http-status-codes'
-import { invitationService } from '~/services/invitationService'
+import { invitationService } from '../services/invitationService.js'
 const createNewBoardInvitation = async (req, res, next) => {
   try {
     // User thực hiện req này chính là Inviter - người đi mời

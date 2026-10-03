@@ -1,4 +1,6 @@
-import { pick } from 'lodash'
+import lodash from 'lodash'
+
+const { pick } = lodash
 export const slugify = (val) => {
   if (!val) return ''
   return String(val)

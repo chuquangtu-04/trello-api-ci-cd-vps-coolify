@@ -1,9 +1,9 @@
 import Joi from 'joi'
 import { ObjectId } from 'mongodb'
-import { GET_DB } from '~/config/mongodb'
-import { CARD_MEMBERS_ACTIONS } from '~/utils/constants'
-import { OBJECT_ID_RULE, OBJECT_ID_RULE_MESSAGE } from '~/utils/validators'
-import { EMAIL_RULE, EMAIL_RULE_MESSAGE } from '~/utils/validators'
+import { GET_DB } from '../config/mongodb.js'
+import { CARD_MEMBERS_ACTIONS } from '../utils/constants.js'
+import { OBJECT_ID_RULE, OBJECT_ID_RULE_MESSAGE } from '../utils/validators.js'
+import { EMAIL_RULE, EMAIL_RULE_MESSAGE } from '../utils/validators.js'
 
 // Define Collection (name & schema)
 const CARD_COLLECTION_NAME = 'cards'

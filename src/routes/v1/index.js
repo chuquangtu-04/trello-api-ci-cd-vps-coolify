@@ -1,12 +1,12 @@
 import express from 'express'
 import { StatusCodes } from 'http-status-codes'
-import { boardRouter } from './boardRoute'
-import { cardRouter } from './cardRouter'
-import { columnRouter } from './columnRouter'
-import { userRouter } from './userRoute'
-import { invitationRouter } from './invitationRouter'
-import { uploadRouter } from './uploadRoute'
-import { aiRouter } from './aiRoute'
+import { boardRouter } from './boardRoute.js'
+import { cardRouter } from './cardRouter.js'
+import { columnRouter } from './columnRouter.js'
+import { userRouter } from './userRoute.js'
+import { invitationRouter } from './invitationRouter.js'
+import { uploadRouter } from './uploadRoute.js'
+import { aiRouter } from './aiRoute.js'
 const Router = express.Router()
 
 // Check Api v1.status

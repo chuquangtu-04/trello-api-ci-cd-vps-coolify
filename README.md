@@ -7,11 +7,6 @@
 * "nodemon": "^3.0.1"
 * "eslint": "^8.47.0"
 
-* "@babel/runtime": "^7.22.10"
-* "@babel/cli": "^7.22.10"
-* "@babel/core": "^7.22.10"
-* "@babel/eslint-parser": "^7.22.10"
-* "@babel/node": "^7.22.10"
-* "@babel/plugin-transform-runtime": "^7.22.10"
-* "@babel/preset-env": "^7.22.10"
-* "babel-plugin-module-resolver": "^5.0.0"
+* Native Node.js ESM (`"type": "module"`)
+* Production: `npm start` or `node src/server.js` with `BUILD_MODE=production`
+* Development: `npm run dev`

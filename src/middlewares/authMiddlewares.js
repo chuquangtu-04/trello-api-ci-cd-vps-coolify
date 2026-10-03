@@ -1,6 +1,6 @@
-import ApiError from '~/utils/ApiError'
-import { env } from '~/config/environment'
-import { JwtProvider } from '~/providers/JwtProvider'
+import ApiError from '../utils/ApiError.js'
+import { env } from '../config/environment.js'
+import { JwtProvider } from '../providers/JwtProvider.js'
 import { StatusCodes } from 'http-status-codes'
 
 //  Middleware này sẽ đảm bảo nhiệm vụ quan trọng: Xác thực cái JWT accessToken nhận được từ phía FE Có hợp lệ

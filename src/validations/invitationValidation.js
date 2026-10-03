@@ -1,8 +1,8 @@
-/* eslint-disable no-console */
+
 import Joi from 'joi'
 import { StatusCodes } from 'http-status-codes'
-import ApiError from '~/utils/ApiError'
-import { BOARD_INVITATION_STATUS } from '~/utils/constants'
+import ApiError from '../utils/ApiError.js'
+import { BOARD_INVITATION_STATUS } from '../utils/constants.js'
 
 const createNewBoardInvitation = async (req, res, next) => {
   const correctCondition = Joi.object({

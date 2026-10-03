@@ -1,7 +1,7 @@
 import express from 'express'
-import { invitationController } from '~/controllers/invitationController'
-import { authMiddleware } from '~/middlewares/authMiddlewares'
-import { invitationValidation } from '~/validations/invitationValidation'
+import { invitationController } from '../../controllers/invitationController.js'
+import { authMiddleware } from '../../middlewares/authMiddlewares.js'
+import { invitationValidation } from '../../validations/invitationValidation.js'
 const Router = express.Router()
 
 Router.route('/board')

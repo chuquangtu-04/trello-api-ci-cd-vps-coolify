@@ -1,8 +1,8 @@
-/* eslint-disable no-console */
+
 import Joi from 'joi'
 import { StatusCodes } from 'http-status-codes'
-import ApiError from '~/utils/ApiError'
-import { BOARD_TYPE } from '~/utils/constants'
+import ApiError from '../utils/ApiError.js'
+import { BOARD_TYPE } from '../utils/constants.js'
 
 const createNew = async (req, res, next) => {
 // * Note: Mặc định chúng ta không cần phải custom message ở phía BE làm gì

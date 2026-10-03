@@ -1,8 +1,8 @@
 import cron from 'node-cron'
-import { GET_DB } from '~/config/mongodb'
-import { BrevoProvider } from '~/providers/BrevoProvider'
+import { GET_DB } from '../config/mongodb.js'
+import { BrevoProvider } from '../providers/BrevoProvider.js'
 import moment from 'moment'
-import { env } from '~/config/environment'
+import { env } from '../config/environment.js'
 import { ObjectId } from 'mongodb'
 
 const CARD_COLLECTION_NAME = 'cards'
@@ -13,7 +13,7 @@ export const startCardReminderCron = () => {
   cron.schedule('* * * * *', async () => {
     try {
       const now = moment().utc()
-      
+
       // Tìm tất cả card có dueDate, reminder và chưa gửi reminder
       const cards = await GET_DB().collection(CARD_COLLECTION_NAME).find({
         dueDate: { $ne: null },
@@ -25,7 +25,7 @@ export const startCardReminderCron = () => {
       for (const card of cards) {
         // card.dueDate bây giờ đã bao gồm cả thời gian (ISO String UTC)
         const dueDateMoment = moment(card.dueDate).utc()
-        
+
         // Kiểm tra cấu trúc reminder
         if (!card.reminder || typeof card.reminder.value !== 'number' || !card.reminder.unit) {
           continue

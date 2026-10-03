@@ -1,6 +1,6 @@
 import cloudinary from 'cloudinary'
 import streamifier from 'streamifier'
-import { env } from '~/config/environment'
+import { env } from '../config/environment.js'
 
 /**
  * Tài liệu tham khảo

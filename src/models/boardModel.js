@@ -1,13 +1,13 @@
-import Joi, { object } from 'joi'
+import Joi from 'joi'
 import { v4 as uuidv4 } from 'uuid'
 import { ObjectId } from 'mongodb'
-import { GET_DB } from '~/config/mongodb'
-import { BOARD_TYPE } from '~/utils/constants'
-import { OBJECT_ID_RULE, OBJECT_ID_RULE_MESSAGE } from '~/utils/validators'
-import { cardModel } from './cardModel'
-import { columnModel } from './columnModel'
-import { pagingSkipValue } from '~/utils/algorithms'
-import { userModel } from './userModel'
+import { GET_DB } from '../config/mongodb.js'
+import { BOARD_TYPE } from '../utils/constants.js'
+import { OBJECT_ID_RULE, OBJECT_ID_RULE_MESSAGE } from '../utils/validators.js'
+import { cardModel } from './cardModel.js'
+import { columnModel } from './columnModel.js'
+import { pagingSkipValue } from '../utils/algorithms.js'
+import { userModel } from './userModel.js'
 
 // Define collection (Name & Schema)
 const BOARD_COLLECTION_NAME = 'boards'
@@ -50,11 +50,11 @@ const validateBeforeCreate = async (data) => {
 const createNew = async (userId, data) => {
   try {
     const validateData = await validateBeforeCreate(data)
-    
-    // Đảm bảo đồng bộ visibility và type khi tạo mới. 
+
+    // Đảm bảo đồng bộ visibility và type khi tạo mới.
     // Ưu tiên visibility, nếu không có lấy type, cuối cùng là PUBLIC.
     const visibility = data.visibility || data.type || BOARD_TYPE.PUBLIC
-    
+
     const finalData = {
       ...validateData,
       visibility: visibility,
@@ -106,7 +106,7 @@ const getDetails = async (userId, boardId) => {
             from: cardModel.CARD_COLLECTION_NAME,
             let: { boardId: '$_id' },
             pipeline: [
-              { $match: { 
+              { $match: {
                 $expr: { $eq: ['$boardId', '$$boardId'] },
                 isArchived: { $ne: true }
               } }

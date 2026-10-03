@@ -1,8 +1,8 @@
 import express from 'express'
-import { cardValidation } from '~/validations/cardValidation'
-import { cardController } from '~/controllers/cardController'
-import { authMiddleware } from '~/middlewares/authMiddlewares'
-import { multerUploadMiddleware } from '~/middlewares/multerUploadMidlleware'
+import { cardValidation } from '../../validations/cardValidation.js'
+import { cardController } from '../../controllers/cardController.js'
+import { authMiddleware } from '../../middlewares/authMiddlewares.js'
+import { multerUploadMiddleware } from '../../middlewares/multerUploadMidlleware.js'
 const Router = express.Router()
 
 Router.route('/')

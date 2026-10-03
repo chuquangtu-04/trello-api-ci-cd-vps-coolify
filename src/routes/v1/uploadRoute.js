@@ -1,7 +1,7 @@
 import express from 'express'
-import { authMiddleware } from '~/middlewares/authMiddlewares'
-import { multerUploadMiddleware } from '~/middlewares/multerUploadMidlleware'
-import { uploadController } from '~/controllers/uploadController'
+import { authMiddleware } from '../../middlewares/authMiddlewares.js'
+import { multerUploadMiddleware } from '../../middlewares/multerUploadMidlleware.js'
+import { uploadController } from '../../controllers/uploadController.js'
 
 const Router = express.Router()
 

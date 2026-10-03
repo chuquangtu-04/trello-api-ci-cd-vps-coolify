@@ -1,7 +1,7 @@
 import Joi from 'joi'
-import ApiError from '~/utils/ApiError'
+import ApiError from '../utils/ApiError.js'
 import { StatusCodes } from 'http-status-codes'
-import { EMAIL_RULE, EMAIL_RULE_MESSAGE, PASSWORD_RULE, PASSWORD_RULE_MESSAGE } from '~/utils/validators'
+import { EMAIL_RULE, EMAIL_RULE_MESSAGE, PASSWORD_RULE, PASSWORD_RULE_MESSAGE } from '../utils/validators.js'
 
 // Đăng kí tài khoản
 const createNew = async (req, res, next) => {

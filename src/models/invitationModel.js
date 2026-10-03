@@ -1,10 +1,10 @@
 import Joi from 'joi'
 import { ObjectId } from 'mongodb'
-import { GET_DB } from '~/config/mongodb'
-import { OBJECT_ID_RULE, OBJECT_ID_RULE_MESSAGE } from '~/utils/validators'
-import { INVITATION_TYPES, BOARD_INVITATION_STATUS } from '~/utils/constants'
-import { boardModel } from './boardModel'
-import { userModel } from './userModel'
+import { GET_DB } from '../config/mongodb.js'
+import { OBJECT_ID_RULE, OBJECT_ID_RULE_MESSAGE } from '../utils/validators.js'
+import { INVITATION_TYPES, BOARD_INVITATION_STATUS } from '../utils/constants.js'
+import { boardModel } from './boardModel.js'
+import { userModel } from './userModel.js'
 
 // Define Collection (name & schema)
 const INVITATION_COLLECTION_NAME = 'invitations'

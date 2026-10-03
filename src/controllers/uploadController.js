@@ -1,5 +1,5 @@
 import { StatusCodes } from 'http-status-codes'
-import { uploadService } from '~/services/uploadService'
+import { uploadService } from '../services/uploadService.js'
 
 const uploadImage = async (req, res, next) => {
   try {

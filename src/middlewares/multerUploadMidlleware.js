@@ -1,7 +1,7 @@
 import multer from 'multer'
 import { StatusCodes } from 'http-status-codes'
-import ApiError from '~/utils/ApiError'
-import { ALLOW_COMMON_FILE_TYPES, LIMIT_COMMON_FILE_SIZE } from '~/utils/validators'
+import ApiError from '../utils/ApiError.js'
+import { ALLOW_COMMON_FILE_TYPES, LIMIT_COMMON_FILE_SIZE } from '../utils/validators.js'
 
 /**
  * Hầu hết những thứ bên dưới đều có ở docs của multer, chỉ là anh tổ chức lại sao cho khoa học và gọn gàng nhất có thể

@@ -1,8 +1,8 @@
 /* eslint-disable no-useless-catch */
-import { boardModel } from '~/models/boardModel'
-import { cardModel } from '~/models/cardModel'
-import { columnModel } from '~/models/columnModel'
-import ApiError from '~/utils/ApiError'
+import { boardModel } from '../models/boardModel.js'
+import { cardModel } from '../models/cardModel.js'
+import { columnModel } from '../models/columnModel.js'
+import ApiError from '../utils/ApiError.js'
 import { StatusCodes } from 'http-status-codes'
 import { ObjectId } from 'mongodb'
 const createNew = async (reqBody) => {
@@ -114,7 +114,7 @@ const copyColumn = async (columnId, reqBody) => {
     }
     const getNewColumn = await createNew(newColumnData)
     const newColumnId = getNewColumn._id.toString()
-    
+
     // 2. Fetch cards
     const oldCards = await cardModel.findByColumnId(columnId)
 
@@ -132,7 +132,7 @@ const copyColumn = async (columnId, reqBody) => {
           updatedAt: null
         }
       })
-      
+
       // Đảm bảo thứ tự giống column cũ
       const orderedNewCards = oldColumn.cardOrderIds.map(oldId => {
         const index = oldCards.findIndex(c => c._id.toString() === oldId.toString())
@@ -144,7 +144,7 @@ const copyColumn = async (columnId, reqBody) => {
         // Cập nhật cardOrderIds cho column mới
         const newCardOrderIds = orderedNewCards.map(c => c._id.toString())
         await columnModel.updateColumn(newColumnId, { cardOrderIds: newCardOrderIds }, 'cardOrderIds')
-        
+
         getNewColumn.cards = orderedNewCards
         getNewColumn.cardOrderIds = newCardOrderIds
       }

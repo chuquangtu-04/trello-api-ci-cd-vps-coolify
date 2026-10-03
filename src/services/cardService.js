@@ -1,7 +1,7 @@
 /* eslint-disable no-useless-catch */
-import { cardModel } from '~/models/cardModel'
-import { columnModel } from '~/models/columnModel'
-import { CloudinaryProvider } from '~/providers/CloudinaryProvider'
+import { cardModel } from '../models/cardModel.js'
+import { columnModel } from '../models/columnModel.js'
+import { CloudinaryProvider } from '../providers/CloudinaryProvider.js'
 import { ObjectId } from 'mongodb'
 
 const createNew = async (reqBody) => {

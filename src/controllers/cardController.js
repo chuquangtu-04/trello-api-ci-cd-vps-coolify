@@ -1,5 +1,5 @@
 import { StatusCodes } from 'http-status-codes'
-import { cardService } from '~/services/cardService'
+import { cardService } from '../services/cardService.js'
 const createNew = async (req, res, next) => {
   try {
     const createCard = await cardService.createNew(req.body)

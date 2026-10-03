@@ -1,15 +1,15 @@
 /* eslint-disable no-useless-catch */
-import { WEBSITE_DOMAIN } from '~/utils/constants'
+import { WEBSITE_DOMAIN } from '../utils/constants.js'
 import { StatusCodes } from 'http-status-codes'
-import { userModel } from '~/models/userModel'
-import { BrevoProvider } from '~/providers/BrevoProvider'
-import { pickUser } from '~/utils/formatter'
-import ApiError from '~/utils/ApiError'
+import { userModel } from '../models/userModel.js'
+import { BrevoProvider } from '../providers/BrevoProvider.js'
+import { pickUser } from '../utils/formatter.js'
+import ApiError from '../utils/ApiError.js'
 import bcryptjs from 'bcryptjs'
 import { v4 as uuidv4 } from 'uuid'
-import { env } from '~/config/environment'
-import { JwtProvider } from '~/providers/JwtProvider'
-import { CloudinaryProvider } from '~/providers/CloudinaryProvider'
+import { env } from '../config/environment.js'
+import { JwtProvider } from '../providers/JwtProvider.js'
+import { CloudinaryProvider } from '../providers/CloudinaryProvider.js'
 
 
 const createNew = async (reqBody) => {

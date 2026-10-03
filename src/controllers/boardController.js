@@ -1,5 +1,5 @@
 import { StatusCodes } from 'http-status-codes'
-import { boardService } from '~/services/boardService'
+import { boardService } from '../services/boardService.js'
 
 // Điều hướng lên service và vào model tạo mới board mới vào database
 const createNew = async (req, res, next) => {

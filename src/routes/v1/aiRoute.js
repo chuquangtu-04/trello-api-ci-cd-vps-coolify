@@ -1,6 +1,6 @@
 import express from 'express'
-import { aiController } from '~/controllers/aiController'
-import { authMiddleware } from '~/middlewares/authMiddlewares'
+import { aiController } from '../../controllers/aiController.js'
+import { authMiddleware } from '../../middlewares/authMiddlewares.js'
 
 const Router = express.Router()
 

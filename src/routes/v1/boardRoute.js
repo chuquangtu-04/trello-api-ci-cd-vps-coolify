@@ -1,7 +1,7 @@
 import express from 'express'
-import { boardController } from '~/controllers/boardController'
-import { authMiddleware } from '~/middlewares/authMiddlewares'
-import { boardValidation } from '~/validations/boardValidation'
+import { boardController } from '../../controllers/boardController.js'
+import { authMiddleware } from '../../middlewares/authMiddlewares.js'
+import { boardValidation } from '../../validations/boardValidation.js'
 const Router = express.Router()
 
 Router.route('/')

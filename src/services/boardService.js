@@ -1,12 +1,14 @@
 /* eslint-disable no-useless-catch */
-import { slugify } from '~/utils/formatter'
-import { boardModel } from '~/models/boardModel'
-import { cardModel } from '~/models/cardModel'
-import { userModel } from '~/models/userModel'
-import ApiError from '~/utils/ApiError'
+import { slugify } from '../utils/formatter.js'
+import { boardModel } from '../models/boardModel.js'
+import { cardModel } from '../models/cardModel.js'
+import { userModel } from '../models/userModel.js'
+import ApiError from '../utils/ApiError.js'
 import { StatusCodes } from 'http-status-codes'
-import { cloneDeep } from 'lodash'
-import { DEFAULT_ITEMS_PER_PAGE, DEFAULT_PAGE } from '~/utils/constants'
+import lodash from 'lodash'
+import { DEFAULT_ITEMS_PER_PAGE, DEFAULT_PAGE } from '../utils/constants.js'
+
+const { cloneDeep } = lodash
 
 const createNew = async (userId, reqBody) => {
   try {
@@ -89,7 +91,7 @@ const getBoards = async (userId, page, itemsPerPage, queryFilters) => {
     // Kiểm tra isStarred cho từng board
     const user = await userModel.findOneById(userId)
     const starredIds = user.starredBoardIds?.map(id => id.toString()) || []
-    
+
     results.boards = results.boards.map(board => ({
       ...board,
       isStarred: starredIds.includes(board._id.toString())
@@ -183,7 +185,7 @@ const updateVisibility = async (userId, boardId, visibility) => {
       throw new ApiError(StatusCodes.FORBIDDEN, 'Only board owners can change visibility!')
     }
 
-    const updatedBoard = await boardModel.update(boardId, { 
+    const updatedBoard = await boardModel.update(boardId, {
       visibility,
       type: visibility // Đồng bộ với trường type cũ
     })

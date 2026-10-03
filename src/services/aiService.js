@@ -1,8 +1,9 @@
+/* eslint-disable no-console */
 import { OpenRouter } from '@openrouter/sdk'
-import { env } from '~/config/environment'
-import { boardModel } from '~/models/boardModel'
+import { env } from '../config/environment.js'
+import { boardModel } from '../models/boardModel.js'
 import { StatusCodes } from 'http-status-codes'
-import ApiError from '~/utils/ApiError'
+import ApiError from '../utils/ApiError.js'
 import moment from 'moment'
 
 // Khởi tạo OpenRouter
@@ -22,11 +23,11 @@ const buildBoardContext = async (userId, boardId) => {
     description: board.description,
     columns: board.columns.map(col => {
       // Lọc ra các card thuộc về column này và không phải là placeholder card
-      const columnCards = board.cards.filter(card => 
-        card.columnId.toString() === col._id.toString() && 
+      const columnCards = board.cards.filter(card =>
+        card.columnId.toString() === col._id.toString() &&
         !card.FE_PlaceholderCard
       )
-      
+
       return {
         columnId: col._id,
         title: col.title,
@@ -97,7 +98,7 @@ const chat = async (userId, boardId, userMessage) => {
     return responseText
   } catch (error) {
     console.error('OpenRouter AI Service Error Details:', error)
-    
+
     if (error.status === 401) {
       throw new ApiError(StatusCodes.UNAUTHORIZED, 'OpenRouter API Key không hợp lệ hoặc bạn chưa cấu hình trong file .env.')
     }
