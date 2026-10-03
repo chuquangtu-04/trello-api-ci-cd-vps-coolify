@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-import exitHook from 'exit-hook'
 import express from 'express'
 import { CONNECT_DB, CLOSE_DB } from '~/config/mongodb'
 import { env } from './config/environment'
@@ -75,9 +74,16 @@ const START_SERVER = () => {
 
   // Thực hiện các tác vụ cleanup trước khi dừng server
   // Đọc thêm ở đây: https://stackoverflow.com/q/14031763/8324172
-  exitHook(() => {
-    CLOSE_DB()
-  })
+  const gracefulShutdown = async () => {
+    try {
+      await CLOSE_DB()
+    } finally {
+      process.exit(0)
+    }
+  }
+
+  process.on('SIGTERM', gracefulShutdown)
+  process.on('SIGINT', gracefulShutdown)
 }
 
 // Chỉ khi kết nối database thành công chúng ta mới Start server Back end lên
