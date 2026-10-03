@@ -1,5 +1,4 @@
 /* eslint-disable no-useless-catch */
-import { WEBSITE_DOMAIN } from '../utils/constants.js'
 import { StatusCodes } from 'http-status-codes'
 import { userModel } from '../models/userModel.js'
 import { BrevoProvider } from '../providers/BrevoProvider.js'
@@ -11,6 +10,22 @@ import { env } from '../config/environment.js'
 import { JwtProvider } from '../providers/JwtProvider.js'
 import { CloudinaryProvider } from '../providers/CloudinaryProvider.js'
 
+const getVerificationLink = (email, token) => {
+  const websiteDomain = env.WEBSITE_DOMAIN
+
+  if (!websiteDomain || websiteDomain === 'undefined') {
+    throw new ApiError(
+      StatusCodes.INTERNAL_SERVER_ERROR,
+      'Missing WEBSITE_DOMAIN_PRODUCTION or WEBSITE_DOMAIN_DEVELOPMENT environment variable!'
+    )
+  }
+
+  const verificationUrl = new URL('/account/verification', websiteDomain)
+  verificationUrl.searchParams.set('email', email)
+  verificationUrl.searchParams.set('token', token)
+
+  return verificationUrl.toString()
+}
 
 const createNew = async (reqBody) => {
   try {
@@ -37,11 +52,16 @@ const createNew = async (reqBody) => {
     const getNewUser = await userModel.findOneById(createUser.insertedId)
 
     // Gửi email cho người dùng xác thực
-    const verifiCationLink = `${WEBSITE_DOMAIN}/account/verification?email=${getNewUser.email}&token=${getNewUser.verifyToken}`
+    const verifiCationLink = getVerificationLink(getNewUser.email, getNewUser.verifyToken)
     const customSubject = 'Trello MERN Stack Advanced: Please verify your email before using our service!'
     const htmlContent = `
     <h3>Here is your verification link:</h3>
-    <h3>${verifiCationLink}</h3>
+    <p>
+      <a href="${verifiCationLink}" target="_blank" rel="noopener noreferrer">
+        Verify your email
+      </a>
+    </p>
+    <p>${verifiCationLink}</p>
     <h3>Sincerely,<br/> - QuangTuDev – Một Lập Trình Viên – </h3>
     `
 

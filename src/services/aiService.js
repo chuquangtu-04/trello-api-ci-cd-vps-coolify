@@ -66,6 +66,10 @@ const buildBoardContext = async (userId, boardId) => {
 
 const chat = async (userId, boardId, userMessage) => {
   try {
+    if (!env.OPENROUTER_API_KEY) {
+      throw new ApiError(StatusCodes.UNAUTHORIZED, 'Thiếu OPENROUTER_API_KEY. Vui lòng cấu hình OpenRouter API key trong biến môi trường.')
+    }
+
     const boardContext = await buildBoardContext(userId, boardId)
 
     const systemPrompt = `
@@ -98,6 +102,8 @@ const chat = async (userId, boardId, userMessage) => {
     return responseText
   } catch (error) {
     console.error('OpenRouter AI Service Error Details:', error)
+
+    if (error.statusCode) throw error
 
     if (error.status === 401) {
       throw new ApiError(StatusCodes.UNAUTHORIZED, 'OpenRouter API Key không hợp lệ hoặc bạn chưa cấu hình trong file .env.')

@@ -2,7 +2,7 @@ import { env } from '../config/environment.js'
 
 // Những domain được phép truy cập tới tài nguyên của server
 export const WHITELIST_DOMAINS = [
-  'https://trello-web-fullstack.vercel.app'
+  'https://app-trello.cqtdev.online'
 ]
 export const BOARD_TYPE = {
   'PUBLIC': 'public',
