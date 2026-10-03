@@ -6,7 +6,7 @@
   "description": "QuangTudev",
   "type": "module",
   "engines": {
-    "node": ">=18.x"
+    "node": ">=20.19.0"
   },
   "scripts": {
     "lint": "eslint src --ext js --report-unused-disable-directives --max-warnings 0",

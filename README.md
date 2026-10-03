@@ -1,5 +1,5 @@
 (Semantic Versioning)
-* nodejs >= 18.16.0
+* nodejs >= 20.19.0
 * npm = v9.8.1
 * yarn = v1.22.19
 
