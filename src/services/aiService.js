@@ -66,8 +66,9 @@ const buildBoardContext = async (userId, boardId) => {
 
 const chat = async (userId, boardId, userMessage) => {
   try {
+    // Lưu ý: KHÔNG dùng 401 cho lỗi của dịch vụ AI, vì Front-end coi mọi 401 là hết phiên đăng nhập và sẽ tự logout người dùng.
     if (!env.OPENROUTER_API_KEY) {
-      throw new ApiError(StatusCodes.UNAUTHORIZED, 'Thiếu OPENROUTER_API_KEY. Vui lòng cấu hình OpenRouter API key trong biến môi trường.')
+      throw new ApiError(StatusCodes.SERVICE_UNAVAILABLE, 'Thiếu OPENROUTER_API_KEY. Vui lòng cấu hình OpenRouter API key trong biến môi trường.')
     }
 
     const boardContext = await buildBoardContext(userId, boardId)
@@ -88,7 +89,7 @@ const chat = async (userId, boardId, userMessage) => {
 
     const response = await openrouter.chat.send({
       chatRequest: {
-        model: 'google/gemini-2.0-flash-001',
+        model: process.env.OPENROUTER_MODEL || 'google/gemini-2.5-flash',
         messages: [
           { role: 'system', content: systemPrompt },
           { role: 'user', content: userMessage }
@@ -103,16 +104,28 @@ const chat = async (userId, boardId, userMessage) => {
   } catch (error) {
     console.error('OpenRouter AI Service Error Details:', error)
 
-    if (error.statusCode) throw error
+    // Lỗi do chính hệ thống mình ném ra (vd: Board not found) thì giữ nguyên
+    if (error instanceof ApiError) throw error
 
-    if (error.status === 401) {
-      throw new ApiError(StatusCodes.UNAUTHORIZED, 'OpenRouter API Key không hợp lệ hoặc bạn chưa cấu hình trong file .env.')
+    // Lỗi từ OpenRouter SDK: SDK gắn mã HTTP vào statusCode (hoặc status).
+    // Chuyển các mã này sang 502/503 để Front-end KHÔNG hiểu nhầm là hết phiên đăng nhập (401) mà logout người dùng.
+    const upstreamStatus = error.statusCode || error.status
+    const detail = error.message || 'Unknown Error'
+
+    if (upstreamStatus === 401 || upstreamStatus === 403) {
+      throw new ApiError(StatusCodes.SERVICE_UNAVAILABLE, `OpenRouter API Key không hợp lệ hoặc đã hết hạn. Vui lòng tạo key mới và cập nhật OPENROUTER_API_KEY. Chi tiết: ${detail}`)
     }
-    if (error.status === 429) {
+    if (upstreamStatus === 402) {
+      throw new ApiError(StatusCodes.SERVICE_UNAVAILABLE, 'Tài khoản OpenRouter đã hết credit. Vui lòng nạp thêm hoặc đổi sang model miễn phí.')
+    }
+    if (upstreamStatus === 429) {
       throw new ApiError(StatusCodes.TOO_MANY_REQUESTS, 'OpenRouter đang bị quá tải hoặc hết hạn mức. Vui lòng thử lại sau.')
     }
+    if (upstreamStatus === 400 || upstreamStatus === 404) {
+      throw new ApiError(StatusCodes.BAD_GATEWAY, `Model AI không khả dụng trên OpenRouter, hãy kiểm tra OPENROUTER_MODEL. Chi tiết: ${detail}`)
+    }
 
-    throw new ApiError(StatusCodes.INTERNAL_SERVER_ERROR, `AI Assistant hiện không khả dụng qua OpenRouter. Chi tiết: ${error.message || 'Unknown Error'}`)
+    throw new ApiError(StatusCodes.BAD_GATEWAY, `AI Assistant hiện không khả dụng qua OpenRouter. Chi tiết: ${detail}`)
   }
 }
 
